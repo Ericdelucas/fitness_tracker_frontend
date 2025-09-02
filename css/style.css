@@ -1,0 +1,1469 @@
+/* Reset e base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+    border-bottom: 2px solid #333;
+}
+
+header h1 {
+    color: #ff0000;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Navegação por abas */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: linear-gradient(145deg, #333, #444);
+    color: white;
+    border: 2px solid #555;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.tab-btn:hover::before {
+    left: 100%;
+}
+
+.tab-btn:hover {
+    background: linear-gradient(145deg, #444, #555);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tab-btn.active {
+    background: linear-gradient(145deg, #ff0000, #cc0000);
+    border-color: #ff0000;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Main content */
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Conteúdo das abas */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease-in;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Container principal (aba contador) */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Contadores de exercícios */
+.contador {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 2px solid #333;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.contador::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff0000, #ff4444, #ff0000);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contador:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 0, 0, 0.2);
+}
+
+.contador:hover::before {
+    opacity: 1;
+}
+
+.contador h2 {
+    color: #ff0000;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stats {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.stats p {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+}
+
+.completed-count, .rep-count {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* Controles */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+button {
+    background: linear-gradient(145deg, #333, #444);
+    color: white;
+    border: 2px solid #555;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: translateY(-1px);
+}
+
+.btn-rep {
+    background: linear-gradient(145deg, #0066cc, #0080ff);
+    border-color: #0080ff;
+}
+
+.btn-rep:hover {
+    background: linear-gradient(145deg, #0080ff, #0099ff);
+    box-shadow: 0 6px 20px rgba(0, 128, 255, 0.4);
+}
+
+.btn-complete {
+    background: linear-gradient(145deg, #cc6600, #ff8000);
+    border-color: #ff8000;
+}
+
+.btn-complete:hover {
+    background: linear-gradient(145deg, #ff8000, #ff9900);
+    box-shadow: 0 6px 20px rgba(255, 128, 0, 0.4);
+}
+
+.custom-input {
+    padding: 10px 15px;
+    width: 90px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    outline: none;
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    background: linear-gradient(145deg, #333, #3a3a3a);
+}
+
+/* Dashboard */
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid #333;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff0000, #ff4444, #ff0000);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+.stat-card:hover::before {
+    transform: translateX(0);
+}
+
+.stat-card h3 {
+    color: #ff0000;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.stat-label {
+    color: #aaa;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.chart-card {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid #333;
+    transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+.chart-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.chart-card h3 {
+    color: #ff0000;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.chart-card canvas {
+    max-height: 350px;
+    width: 100% !important;
+}
+
+/* Relatórios */
+.reports-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.export-section, .import-section, .detailed-stats, .data-management {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid #333;
+    transition: all 0.3s ease;
+}
+
+.export-section:hover, .import-section:hover, .detailed-stats:hover, .data-management:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+.export-section h3, .import-section h3, .detailed-stats h3, .data-management h3 {
+    color: #ff0000;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.export-controls, .import-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn-export {
+    background: linear-gradient(145deg, #006600, #008800);
+    border-color: #008800;
+}
+
+.btn-export:hover {
+    background: linear-gradient(145deg, #008800, #00aa00);
+    box-shadow: 0 6px 20px rgba(0, 136, 0, 0.4);
+}
+
+.btn-import {
+    background: linear-gradient(145deg, #660066, #880088);
+    border-color: #880088;
+}
+
+.btn-import:hover {
+    background: linear-gradient(145deg, #880088, #aa00aa);
+    box-shadow: 0 6px 20px rgba(136, 0, 136, 0.4);
+}
+
+.btn-danger {
+    background: linear-gradient(145deg, #cc0000, #ff0000);
+    border-color: #ff0000;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(145deg, #ff0000, #ff3333);
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+.import-status {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: none;
+}
+
+.import-status.success {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+}
+
+.import-status.error {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+.data-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.data-info p {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ff0000;
+}
+
+.loading {
+    text-align: center;
+    color: #aaa;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #333;
+    margin-top: auto;
+}
+
+footer p {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+/* Toast notifications */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: linear-gradient(145deg, #333, #444);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border-left: 4px solid #ff0000;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    max-width: 300px;
+    font-weight: 600;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success {
+    border-left-color: #00ff00;
+    background: linear-gradient(145deg, #004400, #006600);
+}
+
+.toast.error {
+    border-left-color: #ff0000;
+    background: linear-gradient(145deg, #440000, #660000);
+}
+
+.toast.info {
+    border-left-color: #0088ff;
+    background: linear-gradient(145deg, #004488, #0066cc);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 20px;
+    }
+    
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tab-btn {
+        width: 200px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .controls button {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .export-controls, .import-controls {
+        flex-direction: column;
+    }
+    
+    .export-controls button, .import-controls button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-overview {
+        grid-template-columns: 1fr;
+    }
+    
+    header {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .contador {
+        padding: 20px;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    .chart-card {
+        padding: 20px;
+    }
+    
+    .data-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animações adicionais */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.contador:hover h2 {
+    animation: pulse 2s infinite;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.2); }
+}
+
+.tab-btn.active {
+    animation: glow 3s infinite;
+}
+
+
+
+/* Gerenciamento de Exercícios */
+.exercise-management {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn-add-exercise, .btn-manage-exercises {
+    background: linear-gradient(145deg, #006600, #008800);
+    color: white;
+    border: 2px solid #008800;
+    padding: 15px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-add-exercise:hover, .btn-manage-exercises:hover {
+    background: linear-gradient(145deg, #008800, #00aa00);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 136, 0, 0.4);
+}
+
+.btn-manage-exercises {
+    background: linear-gradient(145deg, #666600, #888800);
+    border-color: #888800;
+}
+
+.btn-manage-exercises:hover {
+    background: linear-gradient(145deg, #888800, #aaaa00);
+    box-shadow: 0 8px 25px rgba(136, 136, 0, 0.4);
+}
+
+/* Dropdown para dashboards */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    background: linear-gradient(145deg, #333, #444);
+    color: white;
+    border: 2px solid #555;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    border-radius: 10px;
+    border: 2px solid #555;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+}
+
+.dropdown-content.show {
+    display: block;
+    animation: dropdownFadeIn 0.3s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #444;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(145deg, #444, #555);
+    color: #ff0000;
+}
+
+/* Modais */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    animation: modalFadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    margin: auto;
+    padding: 0;
+    border: 2px solid #555;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: modalSlideIn 0.3s ease;
+    overflow: hidden;
+}
+
+@keyframes modalSlideIn {
+    from { transform: translateY(-50px) scale(0.9); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-header {
+    background: linear-gradient(145deg, #333, #444);
+    padding: 20px;
+    border-bottom: 2px solid #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    color: #ff0000;
+    margin: 0;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #ff0000;
+}
+
+/* Formulários */
+.form-group {
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.form-group:first-child {
+    margin-top: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #ff0000;
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    background: linear-gradient(145deg, #333, #3a3a3a);
+}
+
+.form-group input[type="color"] {
+    height: 50px;
+    cursor: pointer;
+}
+
+.form-actions {
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    border-top: 1px solid #444;
+}
+
+.btn-primary {
+    background: linear-gradient(145deg, #006600, #008800);
+    border-color: #008800;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(145deg, #008800, #00aa00);
+    box-shadow: 0 6px 20px rgba(0, 136, 0, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(145deg, #666, #777);
+    border-color: #777;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(145deg, #777, #888);
+    box-shadow: 0 6px 20px rgba(119, 119, 119, 0.4);
+}
+
+/* Lista de gerenciamento de exercícios */
+.exercises-list {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.exercise-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    border-radius: 10px;
+    border: 2px solid #444;
+    transition: all 0.3s ease;
+}
+
+.exercise-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.exercise-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.exercise-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #444, #555);
+}
+
+.exercise-details h4 {
+    color: white;
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+}
+
+.exercise-details p {
+    color: #aaa;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.exercise-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit, .btn-remove {
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: none;
+}
+
+.btn-edit {
+    background: linear-gradient(145deg, #0066cc, #0080ff);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: linear-gradient(145deg, #0080ff, #0099ff);
+    transform: translateY(-2px);
+}
+
+.btn-remove {
+    background: linear-gradient(145deg, #cc0000, #ff0000);
+    color: white;
+}
+
+.btn-remove:hover {
+    background: linear-gradient(145deg, #ff0000, #ff3333);
+    transform: translateY(-2px);
+}
+
+.default-badge {
+    background: linear-gradient(145deg, #666600, #888800);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Modal de confirmação */
+.confirm-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.confirm-content p {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.warning {
+    color: #ff6600 !important;
+    font-weight: bold;
+    background: rgba(255, 102, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    border-left: 4px solid #ff6600;
+}
+
+/* Exercícios dinâmicos no contador */
+.exercise-counter {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 2px solid #333;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise-counter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.exercise-counter:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 0, 0, 0.2);
+}
+
+.exercise-counter:hover::before {
+    opacity: 1;
+}
+
+.exercise-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.exercise-icon-large {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #444, #555);
+}
+
+.exercise-title {
+    color: #ff0000;
+    font-size: 1.6rem;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Dashboards individuais */
+.individual-dashboard {
+    display: none;
+    animation: fadeIn 0.4s ease-in;
+}
+
+.individual-dashboard.active {
+    display: block;
+}
+
+.individual-dashboard h2 {
+    color: #ff0000;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+/* Responsividade para modais */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 20px auto;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions button {
+        width: 100%;
+    }
+    
+    .exercise-management {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-add-exercise, .btn-manage-exercises {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .dropdown-content {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .exercise-item {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .exercise-actions {
+        justify-content: center;
+    }
+    
+    .modal-header {
+        padding: 15px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.1rem;
+    }
+}
+
+
+
+/* ========================================
+   LAYOUT HORIZONTAL DOS EXERCÍCIOS
+   ======================================== */
+
+/* Container principal horizontal */
+.exercises-horizontal-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+/* Cards de exercícios horizontais */
+.exercise-card-horizontal {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 2px solid #333;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 280px;
+    max-width: 320px;
+    flex: 1;
+}
+
+.exercise-card-horizontal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--exercise-color, #ff0000), var(--exercise-color-light, #ff4444), var(--exercise-color, #ff0000));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.exercise-card-horizontal:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 0, 0, 0.2);
+}
+
+.exercise-card-horizontal:hover::before {
+    opacity: 1;
+}
+
+/* Cabeçalho do card horizontal */
+.exercise-header-horizontal {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.exercise-header-horizontal h3 {
+    color: var(--exercise-color, #ff0000);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.exercise-icon {
+    font-size: 1.4rem;
+}
+
+/* Estatísticas compactas */
+.stats-horizontal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.stat-item-horizontal {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-item-horizontal .label {
+    color: #aaa;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.stat-item-horizontal .value {
+    color: var(--exercise-color, #ff0000);
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
+/* Controles horizontais compactos */
+.controls-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.controls-horizontal button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    min-width: auto;
+}
+
+.controls-horizontal .custom-input {
+    width: 60px;
+    padding: 6px 8px;
+    font-size: 0.9rem;
+}
+
+/* Botões de exercício completo compactos */
+.complete-controls-horizontal {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.complete-controls-horizontal button {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    flex: 1;
+    max-width: 90px;
+}
+
+/* Container dos botões de gerenciamento */
+.management-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.management-buttons button {
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-add-exercise {
+    background: linear-gradient(145deg, #00aa00, #00cc00);
+    border-color: #00cc00;
+    color: white;
+}
+
+.btn-add-exercise:hover {
+    background: linear-gradient(145deg, #00cc00, #00dd00);
+    box-shadow: 0 6px 20px rgba(0, 204, 0, 0.4);
+}
+
+.btn-manage-exercises {
+    background: linear-gradient(145deg, #666, #777);
+    border-color: #777;
+    color: white;
+}
+
+.btn-manage-exercises:hover {
+    background: linear-gradient(145deg, #777, #888);
+    box-shadow: 0 6px 20px rgba(119, 119, 119, 0.4);
+}
+
+/* Responsividade para layout horizontal */
+@media (max-width: 1400px) {
+    .exercise-card-horizontal {
+        min-width: 260px;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .exercises-horizontal-container {
+        gap: 15px;
+    }
+    
+    .exercise-card-horizontal {
+        min-width: 240px;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 900px) {
+    .exercises-horizontal-container {
+        gap: 12px;
+    }
+    
+    .exercise-card-horizontal {
+        min-width: 220px;
+        max-width: 260px;
+    }
+    
+    .management-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .management-buttons button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .exercises-horizontal-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .exercise-card-horizontal {
+        min-width: 280px;
+        max-width: 400px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .exercise-card-horizontal {
+        min-width: 260px;
+        max-width: 100%;
+        padding: 15px;
+    }
+    
+    .controls-horizontal {
+        gap: 6px;
+    }
+    
+    .controls-horizontal button {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .complete-controls-horizontal button {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Cores dinâmicas para exercícios */
+.exercise-card-horizontal[data-color="red"] {
+    --exercise-color: #ff0000;
+    --exercise-color-light: #ff4444;
+}
+
+.exercise-card-horizontal[data-color="green"] {
+    --exercise-color: #00ff00;
+    --exercise-color-light: #44ff44;
+}
+
+.exercise-card-horizontal[data-color="blue"] {
+    --exercise-color: #0080ff;
+    --exercise-color-light: #4499ff;
+}
+
+.exercise-card-horizontal[data-color="yellow"] {
+    --exercise-color: #ffcc00;
+    --exercise-color-light: #ffdd44;
+}
+
+.exercise-card-horizontal[data-color="purple"] {
+    --exercise-color: #cc00ff;
+    --exercise-color-light: #dd44ff;
+}
+
+.exercise-card-horizontal[data-color="orange"] {
+    --exercise-color: #ff8000;
+    --exercise-color-light: #ff9944;
+}
+
+.exercise-card-horizontal[data-color="cyan"] {
+    --exercise-color: #00ffff;
+    --exercise-color-light: #44ffff;
+}
+
+.exercise-card-horizontal[data-color="pink"] {
+    --exercise-color: #ff00aa;
+    --exercise-color-light: #ff44cc;
+}
+
+/* Ocultar layout vertical quando horizontal está ativo */
+.horizontal-layout .container {
+    display: none;
+}
+
+/* Mostrar apenas layout horizontal */
+.horizontal-layout .exercises-horizontal-container,
+.horizontal-layout .management-buttons {
+    display: flex;
+}
+

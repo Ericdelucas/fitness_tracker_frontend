@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker - Contador de Exercícios Avançado</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Toast Container para notificações -->
+    <div id="toast-container"></div>
+
+    <header>
+        <h1>Fitness Tracker</h1>
+        <nav>
+            <button id="tab-counter" class="tab-btn active" data-tab="counter">Contador</button>
+            <button id="tab-dashboard-total" class="tab-btn" data-tab="dashboard-total">Dashboard Total</button>
+            <div class="dropdown">
+                <button id="tab-dashboards" class="tab-btn dropdown-btn">Dashboards ▼</button>
+                <div id="dashboards-dropdown" class="dropdown-content">
+                    <!-- Dashboards individuais serão adicionados dinamicamente -->
+                </div>
+            </div>
+            <button id="tab-reports" class="tab-btn" data-tab="reports">Relatórios</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Aba Contador -->
+        <section id="counter-section" class="tab-content active horizontal-layout">
+            <!-- Container horizontal dos exercícios -->
+            <div class="exercises-horizontal-container" id="exercises-horizontal-container">
+                <!-- Exercícios serão adicionados dinamicamente aqui -->
+            </div>
+            
+            <!-- Botões de gerenciamento abaixo dos exercícios -->
+            <div class="management-buttons">
+                <button id="add-exercise-btn" class="btn-add-exercise">+ Adicionar Exercício</button>
+                <button id="manage-exercises-btn" class="btn-manage-exercises">⚙️ Gerenciar Exercícios</button>
+            </div>
+            
+            <!-- Container vertical original (oculto no layout horizontal) -->
+            <div class="container">
+                <div id="exercises-container">
+                    <!-- Exercícios serão adicionados dinamicamente (layout vertical) -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Aba Dashboard Total -->
+        <section id="dashboard-total-section" class="tab-content">
+            <div class="dashboard-container">
+                <h2>📊 Dashboard Total - Todos os Exercícios</h2>
+                
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <h3>Hoje</h3>
+                        <p class="stat-number" id="total-today">0</p>
+                        <p class="stat-label">Exercícios</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Esta Semana</h3>
+                        <p class="stat-number" id="total-week">0</p>
+                        <p class="stat-label">Exercícios</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Este Mês</h3>
+                        <p class="stat-number" id="total-month">0</p>
+                        <p class="stat-label">Exercícios</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Sequência Geral</h3>
+                        <p class="stat-number" id="total-streak">0</p>
+                        <p class="stat-label">Dias</p>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Comparação entre Exercícios (Últimos 30 dias)</h3>
+                        <canvas id="totalComparisonChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Distribuição Total de Exercícios</h3>
+                        <canvas id="totalPieChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card full-width">
+                        <h3>Progresso Geral (Últimos 30 dias)</h3>
+                        <canvas id="totalProgressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboards Individuais (serão criados dinamicamente) -->
+        <div id="individual-dashboards">
+            <!-- Dashboards individuais serão adicionados aqui -->
+        </div>
+
+        <!-- Aba Relatórios -->
+        <section id="reports-section" class="tab-content">
+            <div class="reports-container">
+                <div class="export-section">
+                    <h3>Exportar Dados</h3>
+                    <div class="export-controls">
+                        <button id="export-csv" class="btn-export">Exportar CSV</button>
+                        <button id="export-json" class="btn-export">Backup JSON</button>
+                        <button id="clear-data" class="btn-danger">Limpar Dados</button>
+                    </div>
+                </div>
+
+                <div class="import-section">
+                    <h3>Importar Dados</h3>
+                    <div class="import-controls">
+                        <input type="file" id="import-file" accept=".json,.csv" style="display: none;">
+                        <button id="import-btn" class="btn-import">Selecionar Arquivo</button>
+                        <button id="restore-sample" class="btn-import">Dados de Exemplo</button>
+                    </div>
+                    <div id="import-status" class="import-status"></div>
+                </div>
+
+                <div class="detailed-stats">
+                    <h3>Estatísticas Detalhadas</h3>
+                    <div id="detailed-stats-content">
+                        <div class="loading">Carregando estatísticas...</div>
+                    </div>
+                </div>
+
+                <div class="data-management">
+                    <h3>Gerenciamento de Dados</h3>
+                    <div class="data-info">
+                        <p><strong>Armazenamento:</strong> <span id="storage-usage">0 KB</span> utilizados</p>
+                        <p><strong>Último backup:</strong> <span id="last-backup">Nunca</span></p>
+                        <p><strong>Total de exercícios:</strong> <span id="total-exercises">0</span></p>
+                        <p><strong>Total de registros:</strong> <span id="total-records">0</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Adicionar Exercício -->
+    <div id="add-exercise-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Adicionar Novo Exercício</h3>
+                <span class="close" onclick="closeModal('add-exercise-modal')">&times;</span>
+            </div>
+            <form id="add-exercise-form">
+                <div class="form-group">
+                    <label for="exercise-name">Nome do Exercício:</label>
+                    <input type="text" id="exercise-name" placeholder="Ex: Burpees, Prancha, etc." required maxlength="30">
+                </div>
+                <div class="form-group">
+                    <label for="exercise-color">Cor do Exercício:</label>
+                    <input type="color" id="exercise-color" value="#ff0000">
+                </div>
+                <div class="form-group">
+                    <label for="exercise-icon">Emoji (opcional):</label>
+                    <input type="text" id="exercise-icon" placeholder="💪 🔥 🏃 ⚡" maxlength="2">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Adicionar</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal('add-exercise-modal')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Gerenciar Exercícios -->
+    <div id="manage-exercises-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Gerenciar Exercícios</h3>
+                <span class="close" onclick="closeModal('manage-exercises-modal')">&times;</span>
+            </div>
+            <div class="exercises-list">
+                <div id="exercises-management-list">
+                    <!-- Lista de exercícios será preenchida dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmar Remoção -->
+    <div id="confirm-remove-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Remoção</h3>
+                <span class="close" onclick="closeModal('confirm-remove-modal')">&times;</span>
+            </div>
+            <div class="confirm-content">
+                <p>Tem certeza que deseja remover o exercício <strong id="exercise-to-remove"></strong>?</p>
+                <p class="warning">⚠️ Todos os dados históricos deste exercício serão perdidos permanentemente!</p>
+                <div class="form-actions">
+                    <button id="confirm-remove-btn" class="btn-danger">Sim, Remover</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal('confirm-remove-modal')">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Fitness Tracker - Versão Avançada com Dashboards Individuais</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
